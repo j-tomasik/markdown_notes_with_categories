@@ -6,8 +6,15 @@ export function NoteForm(){
             <Stack gap={4}>
                 <Row>
                     <Col>
-                        <Form.Group>
-
+                        <Form.Group controlId='title'>
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control required />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group controlId='title'>
+                            <Form.Label>Tag</Form.Label>
+                            <Form.Control required />
                         </Form.Group>
                     </Col>
                 </Row>
