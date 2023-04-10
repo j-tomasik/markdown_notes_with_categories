@@ -1,20 +1,38 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button, Col, Form, Row, Stack } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import ReactSelect from "react-select"
-import { Tag } from "./App";
+import { Note, Tag } from "./App";
+
+
+type SimplifiedNote = {
+    tags: Tag[]
+    title: string
+    id: string
+}
 
 type NoteListProps = {
     availableTags: Tag[]
+    notes: SimplifiedNote[]
 }
 
-export function NoteList({availableTags}: NoteListProps) {
+
+export function NoteList({availableTags, notes }: NoteListProps) {
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [title, setTitle] = useState("")
 
+    const filteredNotes = useMemo (() => {
+        return notes.filter(note => {
+            //if title is still empty or doesnt match don't do anything
+            return (title === "" || note.title.toLowerCase().includes(title.toLocaleLowerCase())) 
+            //makes sure that all of the tags match the tag name we enter in the search bar
+            && (selectedTags.length === 0 || selectedTags.every(tag => note.tags.some(noteTag => noteTag.id === tag.id)));
+        })
+    }, [title, selectedTags, notes])
+
     return(
         <>
-        <Row>
+        <Row classNmae="align-items-center mb-4">
             <Col><h1>Notes</h1></Col>
             <Col xs="auto">
                 <Stack gap={2} direction="horizontal">
@@ -54,6 +72,18 @@ export function NoteList({availableTags}: NoteListProps) {
                 </Col>
             </Row>
         </Form>
+        <Row xs={1} sm={2} lg={3} xl={4} classnAME="g-3">
+            {filteredNotes.map(note => (
+                <Col key={note.id}>
+                    <NoteCard id={note.id} title={note.title} tags={note.tags} />
+                </Col>
+            ))}
+
+        </Row>
         </>
     )
+}
+
+function NoteCard({id, title, tags}: SimplifiedNote) {
+    return <h1>Hi</h1>
 }
