@@ -6,6 +6,7 @@ import { NewNote } from "./NewNotes"
 import { useLocalStorage } from "./useLocalStorage"
 import {v4 as uuidV4} from 'uuid'
 import { NoteList } from './NoteList'
+import { NoteLayout } from './NoteLayout'
 
 
 export type Note = {
@@ -64,12 +65,12 @@ function App() {
               <Route path='/new' element={<NewNote onSubmit={onCreateNote} onAddTag={addTag} 
               availableTags={tags}
               />} />
-              <Route path='*' element={<Navigate to='/' />}/>
-              <Route path='/:id'>
-                <Route path="index" element={<h1>show</h1>}/>
+              
+              <Route path="/:id" element={<NoteLayout notes={notesWithTags}/>}>
+                <Route index element={<h1>show</h1>}/>
                 <Route path="edit" element= {<h1>edit</h1>}/>
               </Route>
-              
+              <Route path='*' element={<Navigate to='/' />}/>
       </Routes>
 
     </Container>
