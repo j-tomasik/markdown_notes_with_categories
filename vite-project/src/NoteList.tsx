@@ -3,7 +3,7 @@ import { Button, Card, Col, Form, Row, Stack } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import ReactSelect from "react-select"
 import { Tag } from "./App";
-
+import styles from "./NoteList.module.css"
 
 
 type SimplifiedNote = {
@@ -86,15 +86,10 @@ export function NoteList({availableTags, notes }: NoteListProps) {
 }
 
 function NoteCard({id, title, tags}: SimplifiedNote) {
-    const cardStyle = {
-        transition: 'translate ease-in-out 100ms, box-shadow ease-in-out 100ms',
-        textDecoration: 'none',
-    }
-    // const cardHoverStyle = {
-    //     translate: '0, -5px',
-    //     boxShadow: '0 5px 8 px 0 rbga(0, 0, 0, .2)'
-    // }
-    return <Card as={Link} to={`/${id}`} style={cardStyle}>
 
+    return <Card as={Link} to={`/${id}`} className={`h-100 text-reset text-decoration-none ${styles.card}`}>
+        <Card.Body>
+            
+        </Card.Body>
     </Card> 
 }
