@@ -1,5 +1,6 @@
 import { useNote } from "./NoteLayout";
 import {Badge, Button, Col, Row, Stack } from "react-bootstrap"
+import ReactMarkdown from "react-markdown";
 import { Link } from 'react-router-dom'
 
 export function Note() {
@@ -15,6 +16,7 @@ export function Note() {
                         ))}
                     </Stack>)}
             </Col> 
+
             <Col xs="auto">
                 <Stack gap={2} direction="horizontal">
                     <Link to={`/${note.id}/edit`}>
@@ -27,6 +29,7 @@ export function Note() {
                 </Stack>
             </Col>
         </Row>
+        <ReactMarkdown>{note.markdown}</ReactMarkdown>
     </>
 
 }
