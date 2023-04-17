@@ -35,16 +35,17 @@ export function NoteList({availableTags, notes, onUpdateTag, onDeleteTag }: Note
 
     const filteredNotes = useMemo (() => {
         return notes.filter(note => {
-            //if title is still empty or doesnt match don't do anything
+            //if title is empty return all notes, or if title of a note matches the title entered in state
             return (title === "" || note.title.toLowerCase().includes(title.toLocaleLowerCase())) 
-            //makes sure that all of the tags match the tag name we enter in the search bar
+            //makes sure that if no tags are specified return all, or if tags match the tag name we enter in the search bar
             && (selectedTags.length === 0 || selectedTags.every(tag => note.tags.some(noteTag => noteTag.id === tag.id)));
+            //this func will only return notes that are boolean true for both cases, based on the two possible search params    
         })
     }, [title, selectedTags, notes])
 
     return(
         <>
-        <Row classNmae="align-items-center mb-4">
+        <Row className="align-items-center mb-4">
             <Col><h1>Notes</h1></Col>
             <Col xs="auto">
                 <Stack gap={2} direction="horizontal">
